@@ -1,1 +1,1 @@
-Para la primer entrega realice un calculador de iva , en el cual utilice funciones y condicionales. En este caso no utilice bucles ya que no hacia falta , porque se puede calcular la cantidad de veces que lo desee el usuario . El envio gratis o no, lo hice con la idea de realizar una futura tienda.
+para la segunda entrega lo mejore , usando mas herramientas aorendidas en clase.
