@@ -1,31 +1,76 @@
-function calcularIva(total) {
-    let iva = total * 0.21;
-    return iva;
+let carrito = [];
+let subtotal = 0;
+let total = 0;
+let envioGratisAlertado = false; 
+
+function agregarProducto(nombre, precio) {
+    carrito.push({ nombre: nombre, precio: precio });
+    subtotal += precio;
+
+    calcularTotal();
+    actualizarCarrito();
+
+    if (!envioGratisAlertado && total > 99.99) {
+        mostrarMensajeEnvioGratis();
+        envioGratisAlertado = true;
+    }
 }
 
-function calcularTotal(precioUno, precioDos) {
-    let total = precioUno + precioDos;
-    return total;
+function eliminarProducto(index) {
+    const precioEliminado = carrito[index].precio;
+    carrito.splice(index, 1);
+    subtotal -= precioEliminado;
+
+    calcularTotal();
+    actualizarCarrito();
+
+    if (envioGratisAlertado && total <= 99.99) {
+        ocultarMensajeEnvioGratis();
+        envioGratisAlertado = false;
+    }
 }
 
-let precioUno = prompt("Introduce el precio del primer producto:");
-let precioDos = prompt("Introduce el precio del segundo producto:");
+function calcularTotal() {
+    total = subtotal * 1.21;
+}
 
-let resultado = calcularTotal(+precioUno, +precioDos);
-let resultadoFinal = resultado + calcularIva(resultado);
+function actualizarCarrito() {
+    const cartList = document.getElementById('cart-list');
+    cartList.innerHTML = '';
 
-console.log(resultadoFinal);
+    carrito.forEach((producto, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${producto.nombre} - $${producto.precio.toFixed(2)}`;
 
-alert(`El resultado final con iva incluido es de ${resultadoFinal}`);
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.addEventListener('click', () => {
+            eliminarProducto(index);
+        });
 
-// Determinacion para saber si una vez que el cliente compre el producto , el envio es gratis o no
+        li.appendChild(deleteButton);
+        cartList.appendChild(li);
+    });
 
-if (resultadoFinal <= 29999) {
-    console.log("Pagas tu envío");
-    let envio = alert("Pagas tu envio");
-    console.log("Confirmación del usuario:", envio);
-} else if (resultadoFinal >= 30000) {
-    console.log("Tu envío es gratis");
-    let confirmacion = alert("Tu envio es gratis");
-    console.log("Confirmación del usuario:", confirmacion);
+    const cartSubtotal = document.getElementById('cart-subtotal');
+    cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+
+    const cartTotal = document.getElementById('cart-total');
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+
+    if (envioGratisAlertado && total <= 99.99) {
+        ocultarMensajeEnvioGratis();
+        envioGratisAlertado = false;
+    }
+}
+
+function mostrarMensajeEnvioGratis() {
+    const mensajeContainer = document.getElementById('mensaje-container');
+    mensajeContainer.textContent = '¡Envío gratis por superar los $99.99!';
+    mensajeContainer.style.color = 'green'; 
+}
+
+function ocultarMensajeEnvioGratis() {
+    const mensajeContainer = document.getElementById('mensaje-container');
+    mensajeContainer.textContent = ''; 
 }

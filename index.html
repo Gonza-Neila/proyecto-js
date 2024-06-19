@@ -1,12 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Productos disponibles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .producto {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #cart {
+            text-align: left;
+            margin-top: 20px;
+        }
+        #mensaje-container {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Calculador De Iva</h1>
+    <h1>Productos disponibles</h1>
+
+    <div id="productos">
+        <div class="producto">
+            <h3>Producto 1</h3>
+            <p>Precio: $50</p>
+            <button onclick="agregarProducto('Producto 1', 50)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Producto 2</h3>
+            <p>Precio: $30</p>
+            <button onclick="agregarProducto('Producto 2', 30)">Agregar al Carrito</button>
+        </div>
+        <div class="producto">
+            <h3>Producto 3</h3>
+            <p>Precio: $20</p>
+            <button onclick="agregarProducto('Producto 3', 20)">Agregar al Carrito</button>
+        </div>
+    </div>
+
+    <div id="cart">
+        <h2>Carrito</h2>
+        <ul id="cart-list">
+        </ul>
+        <p>Subtotal: <span id="cart-subtotal">$0.00</span></p>
+        <p>Total con IVA (21%): <span id="cart-total">$0.00</span></p>
+        
+        <p id="mensaje-container"></p> 
+    </div>
+
     <script src="proyecto.js"></script>
 </body>
 </html>
